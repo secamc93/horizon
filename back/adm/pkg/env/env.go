@@ -1,7 +1,7 @@
 package env
 
 import (
-	"adm/pkg/logger"
+	"cam/horizon/pkg/log"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -20,7 +20,7 @@ type Env struct {
 }
 
 func LoadEnv() *Env {
-	log := logger.NewLogger()
+	log := log.NewLogger()
 
 	// Cargar variables de entorno desde el archivo .env
 	err := godotenv.Load()
@@ -43,7 +43,7 @@ func LoadEnv() *Env {
 	return env
 }
 
-func getEnv(key string, log logger.ILogger) string {
+func getEnv(key string, log log.ILogger) string {
 	value, exists := os.LookupEnv(key)
 	if !exists {
 		log.Fatal("Environment variable %s not set", key)

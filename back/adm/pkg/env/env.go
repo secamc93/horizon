@@ -1,7 +1,7 @@
 package env
 
 import (
-	"cam/horizon/pkg/log"
+	"cam/horizon/pkg/logger"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -20,7 +20,7 @@ type Env struct {
 }
 
 func LoadEnv() *Env {
-	log := log.NewLogger()
+	log := logger.NewLogger()
 
 	// Cargar variables de entorno desde el archivo .env
 	err := godotenv.Load()
@@ -35,7 +35,7 @@ func LoadEnv() *Env {
 		DBUser:     getEnv("DB_USER", log),
 		DBPassword: getEnv("DB_PASSWORD", log),
 		ServerPort: getEnv("SERVER_PORT", log),
-		DBLogMode:  getEnv("DB_LOG_MODE", log),
+		DBLogMode:  getEnv("SERVER_PORT", log),
 		JwtSecret:  getEnv("JWT_SECRET", log),
 		BaseUrl:    getEnv("BASE_URL", log),
 	}
@@ -43,7 +43,7 @@ func LoadEnv() *Env {
 	return env
 }
 
-func getEnv(key string, log log.ILogger) string {
+func getEnv(key string, log logger.ILogger) string {
 	value, exists := os.LookupEnv(key)
 	if !exists {
 		log.Fatal("Environment variable %s not set", key)
